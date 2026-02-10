@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Arcade</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- BACKGROUND ANIMATION (handled in CSS) -->
+  <div class="bg-overlay"></div>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="glass-panel fade-in">
+    <h1 class="glow-text">MINI ARCADE</h1>
+    <p class="subtitle">Enter the Cyberverse</p>
+    <div class="input-group">
+      <input type="text" id="username" placeholder="Choose Nickname" maxlength="12">
+      <button class="btn-primary" onclick="enterLobby()">ENTER LOBBY 🚀</button>
+    </div>
+  </div>
+
+  <!-- LOBBY -->
+  <div id="lobby" class="glass-panel hidden fade-in">
+    <div class="lobby-header">
+      <h1 class="glow-text">GAME ZONE</h1>
+      <h3 id="welcome-msg"></h3>
+    </div>
+
+    <div class="lobby-content">
+      <div id="lobby-options">
+        <button class="btn-game" onclick="createGame('tictactoe')">
+          <span class="icon">❌</span> Tic-Tac-Toe
+        </button>
+        <button class="btn-game" onclick="createGame('memory')">
+          <span class="icon">🃏</span> Memory Match
+        </button>
+        <button class="btn-game" onclick="createGame('mathwars')">
+          <span class="icon">🧮</span> Math Wars
+        </button>
+
+        <div class="divider"></div>
+
+        <div class="join-group">
+          <input id="pinInput" placeholder="Enter PIN">
+          <button class="btn-secondary" onclick="joinGame()">JOIN ROOM</button>
+        </div>
+      </div>
+
+      <div id="leaderboard-panel" class="glass-subpanel">
+        <h3>🏆 TOP PLAYERS</h3>
+        <ul id="leaderboard-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN GAME CONTAINER -->
+  <div id="game-container" class="hidden fade-in">
+
+    <!-- HEADER BAR -->
+    <header class="game-header glass-bar">
+      <div class="logo">👾 ARCADE</div>
+      <button id="home-btn" class="btn-small" onclick="leaveGame()">🏠 HOME</button>
+    </header>
+
+    <div class="game-content-wrapper">
+      <!-- LEFT: GAME AREA -->
+      <div class="game-area glass-panel">
+
+        <!-- TIC-TAC-TOE -->
+        <div id="game-tictactoe" class="hidden">
+          <h2>TIC-TAC-TOE</h2>
+          <h3 id="status-tictactoe" class="status-text">Waiting...</h3>
+          <div id="board" class="game-grid"></div>
+          <button id="resetBtn-tictactoe" class="btn-warning hidden" onclick="resetGame()">RESTART</button>
+        </div>
+
+        <!-- MEMORY MATCH -->
+        <div id="game-memory" class="hidden">
+          <h2>MEMORY MATCH</h2>
+          <h3 id="status-memory" class="status-text">Waiting...</h3>
+          <div id="memory-scores" class="score-display">P1: 0 | P2: 0</div>
+          <div id="memory-board" class="memory-grid"></div>
+          <button id="resetBtn-memory" class="btn-warning hidden" onclick="resetGame()">RESTART</button>
+        </div>
+
+        <!-- MATH WARS -->
+        <div id="game-mathwars" class="hidden">
+          <h2>MATH WARS</h2>
+          <h3 id="math-status" class="status-text">Race to 10!</h3>
+          <div id="math-scores" class="score-display">P1: 0 | P2: 0</div>
+
+          <div id="math-question" class="big-text">? + ?</div>
+
+          <div class="math-input-group">
+            <input type="number" id="mathInput" placeholder="Answer" onkeypress="handleMathSubmit(event)">
+            <button class="btn-action" onclick="submitMath()">SUBMIT</button>
+          </div>
+
+          <button id="resetBtn-mathwars" class="btn-warning hidden" onclick="resetGame()">RESTART</button>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: SIDEBAR (CHAT) -->
+      <div class="sidebar glass-panel">
+        <h3>💬 CHAT</h3>
+        <div id="chat-box">
+          <div id="messages"></div>
+          <input type="text" id="chatInput" placeholder="Say something..." onkeypress="handleChat(event)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
