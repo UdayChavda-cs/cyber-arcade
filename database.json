@@ -1,0 +1,26 @@
+{
+  "users": {
+    "Uday": {
+      "wins": 3,
+      "games": {
+        "tictactoe": 1,
+        "memory": 1,
+        "mathwars": 1
+      }
+    },
+    "admin": {
+      "wins": 0,
+      "games": {}
+    }
+  },
+  "leaderboard": [
+    {
+      "name": "Uday",
+      "wins": 3
+    },
+    {
+      "name": "admin",
+      "wins": 0
+    }
+  ]
+}
